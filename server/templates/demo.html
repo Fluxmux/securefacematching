@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>OneSpan MPC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.min.css') }}">
+  </head>
+  <body>
+    <div class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+      <div class="container">
+        <a href="/" ><img style="height: 60px; width: 100%; display: block; padding:8px" src="{{ url_for('static', filename='onespan_logo.svg') }}" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+              Innovation Center: Internet of Things Project
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="bs-component">
+              <div class="jumbotron">
+                <h1 class="display-4">Multi-Party Computation Demonstration</h1>
+                <p class="lead">This page showcases a technical demonstration of Multi-Party Computation (MPC) used in the Innovation Center's Internet of Things (IoT) project. The demo was created by Carlton Shepherd and Pradip Mainali.</p>
+                <hr class="my-4">
+                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                <p class="lead">
+                  <a class="btn btn-primary btn-lg" href="#description" role="button">Learn More</a>
+				  <a class="btn btn-primary btn-lg" href="#demo" role="button">Demonstration</a>
+				  <a class="btn btn-primary btn-lg" href="#" role="button">Future Research</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+		
+		
+      
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1  id="description">Description</h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Headings -->
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Example body text</h2>
+              <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+              <p><small>This line of text is meant to be treated as fine print.</small></p>
+              <p>The following is <strong>rendered as bold text</strong>.</p>
+              <p>The following is <em>rendered as italicized text</em>.</p>
+              <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Example body text</h2>
+              <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+              <p><small>This line of text is meant to be treated as fine print.</small></p>
+              <p>The following is <strong>rendered as bold text</strong>.</p>
+              <p>The following is <em>rendered as italicized text</em>.</p>
+              <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+            </div>
+
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Emphasis classes</h2>
+              <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+              <p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p class="text-secondary">Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+              <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
+              <p class="text-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+		<div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="demo">Demonstration</h1>
+            </div>
+          </div>
+        </div>
+		
+		<div class="row">
+          <div class="col-lg-12">
+            <p>Submit your secret number and algorithm below. The other parties will generate a random number before applying the algorithm over all numbers using MPC.</p>
+          </div>
+        </div>
+		
+		<form>
+		<fieldset>
+		<div class="input-group mb-3" style="width:50%;  margin-right: auto; margin-left: auto">
+		<input type="text" class="form-control" placeholder="Enter your secret number" aria-label="" aria-describedby="basic-addon1">
+		<div class="input-group-append">
+			<select class="custom-select" id="inputGroupSelect02">
+				<option selected>Choose Algorithm...</option>
+					<option value="1">Mean</option>
+					<option  value="2">Max</option>
+					<option value="3">Variance</option>
+			</select>
+			<button class="btn btn-primary" type="submit">Submit</button>
+		</div>
+		</div>
+		</fieldset>
+		</form>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <p style="text-align:center" id="tables">Result: {{result}}, Your number: {{my_number}}, All parties' numbers: {{numbers}}</p>
+            </div>
+			</div>
+			</div>
+	  
+	  
+	    <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1  id="future">Future Research</h1>
+            </div>
+          </div>
+        </div>
+
+        <!-- Headings -->
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Example body text</h2>
+              <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+              <p><small>This line of text is meant to be treated as fine print.</small></p>
+              <p>The following is <strong>rendered as bold text</strong>.</p>
+              <p>The following is <em>rendered as italicized text</em>.</p>
+              <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Example body text</h2>
+              <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.</p>
+              <p><small>This line of text is meant to be treated as fine print.</small></p>
+              <p>The following is <strong>rendered as bold text</strong>.</p>
+              <p>The following is <em>rendered as italicized text</em>.</p>
+              <p>An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.</p>
+            </div>
+
+          </div>
+          <div class="col-lg-4">
+            <div class="bs-component">
+              <h2>Emphasis classes</h2>
+              <p class="text-muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+              <p class="text-primary">Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <p class="text-secondary">Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+              <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
+              <p class="text-danger">Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+
+            </div>
+
+          </div>
+        </div>
+
+
+    
+      <!-- Dialogs
+      ================================================== 
+      <div class="bs-docs-section">
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="page-header">
+              <h1 id="dialogs">Dialogs</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <h2>Modals</h2>
+            <div class="bs-component">
+              <div class="modal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Modal body text goes here.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h2>Popovers</h2>
+            <div class="bs-component" style="margin-bottom: 3em;">
+              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Left</button>
+
+              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Top</button>
+
+              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Vivamus
+              sagittis lacus vel augue laoreet rutrum faucibus.">Bottom</button>
+
+              <button type="button" class="btn btn-secondary" title="Popover Title" data-container="body" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">Right</button>
+            </div>
+            <h2>Tooltips</h2>
+            <div class="bs-component">
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Left</button>
+
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Top</button>
+
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Bottom</button>
+
+              <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Right</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="source-modal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Source Code</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <pre contenteditable></pre>
+            </div>
+          </div>
+        </div>
+      </div>-->
+
+      <footer id="footer">
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Code released under the <a href="https://github.com/thomaspark/bootswatch/blob/master/LICENSE">MIT License</a>.</p>
+            <p>Based on <a href="https://getbootstrap.com" rel="nofollow">Bootstrap</a>. Icons from <a href="http://fontawesome.io/" rel="nofollow">Font Awesome</a>. Web fonts from <a href="https://fonts.google.com/" rel="nofollow">Google</a>.</p>
+
+          </div>
+        </div>
+
+      </footer>
+
+
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  </body>
+</html>

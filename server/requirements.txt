@@ -1,0 +1,4 @@
+Flask>=1.0.0
+pymongo
+gmpy2
+requests

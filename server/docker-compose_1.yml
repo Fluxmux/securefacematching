@@ -1,0 +1,31 @@
+version: "3"
+services:
+   web:
+      build: .
+      image: server
+      command: python -u app.py
+      ports:
+        - "5001:5000"
+        - "11366:11366"
+      depends_on: 
+        - mongo
+      environment:
+        Party: 1
+      env_file:
+        - server.env
+      networks:
+        - mpc_backend
+        - local_net
+   mongo:
+      image: mongo:latest
+      ports:
+         - "27018:27017"
+      networks:
+        - local_net
+
+networks:
+    local_net: 
+        driver: bridge
+    mpc_backend:
+        external:
+          name: mpc_backend

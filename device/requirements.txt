@@ -1,0 +1,3 @@
+Requests>=2.16.0
+APScheduler>=3.5.0
+numpy

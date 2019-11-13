@@ -1,0 +1,7 @@
+version: "3"
+services:
+   web:
+      build: .
+      command: python -u app.py
+      env_file:
+        - device.env
