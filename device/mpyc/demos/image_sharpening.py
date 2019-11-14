@@ -1,5 +1,6 @@
 import os
 from matplotlib.image import imread
+import matplotlib.pyplot as plt
 import numpy as np
 import requests
 import cv2
@@ -17,21 +18,9 @@ for j in np.arange(len(hosts)):
 #send image as flattened ndarray
 image = imread(os.path.join('data_faces', '1.pgm'))
 image = cv2.resize(image, dsize=(100, 100))
+
 flattened_image = image.flatten()
 
-hor_filter = np.array([[-1, -1, -1],
-                       [ 0,  0,  0],
-                       [ 1,  1,  1]]).flatten()
-
-
-ver_filter = np.array([[-1, 0, 1],
-                       [-1, 0, 1],
-                       [-1, 0, 1]]).flatten()
-
-print(f'sending shares of input {hor_filter} to servers')
-send_shares_mpc(hor_filter, ['Hor_filter'], 'test', hosts, ports, combined=True)
-print(f'sending shares of input {ver_filter} to servers')
-send_shares_mpc(ver_filter, ['Ver_filter'], 'test', hosts, ports, combined=True)
 print(f'sending shares of input {flattened_image} to servers')
 send_shares_mpc(flattened_image, ['Face'], 'test', hosts, ports, combined=True)
 
@@ -43,3 +32,12 @@ print(f'Response status code: {response.status_code}')
 output = response.text
 print(type(output))
 print(output)
+output = output.replace("[", "")
+output = output.replace("]", "")
+output = np.fromstring(output, dtype=float, sep=',').astype(np.uint8)
+output = np.clip(output, 10, 240)
+output = np.reshape(output, (-1, 98))
+cv2.imshow("original", image)
+cv2.imshow("sharpened", output)
+cv2.waitKey(0)
+cv2.imwrite('secure_out.png', output)

@@ -10,6 +10,7 @@ async def main():
     print("a:", type(a), a)
     print("b:", type(b), b)
     result = mpc.add(a, b)
+    result *= 10
     print("outputting result of type:", type(result), result)
     print("OUTPUT:", await mpc.output(result))
     print("$$$\n")
