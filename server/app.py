@@ -133,7 +133,7 @@ def mpyc_launch():
         # Fetch and parse result
         l.debug(f'{datetime.datetime.now()}: start mpyc script...')
         #raw_result = os.popen(f"python -u run.py 3 average.py").read()
-        process = subprocess.Popen(['python', script_name, '-c', f'party{3}_0.ini'], stdout=DEVNULL)#stdout=subprocess.PIPE)#shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        process = subprocess.Popen(['python', script_name, '-c', f'party{3}_0.ini'], stdout=subprocess.PIPE)
         stdout, stderr = process.communicate()
         is_running = False
         l.debug(f'{datetime.datetime.now()}: end mpyc compute script...')

@@ -1,22 +1,39 @@
 import numpy as np
 from mpyc.runtime import mpc
 
-"""
- function:  2D convolution without padding
- input:     image of size wi*hi (list)
-            kernel of size s*s  (list)
- output:    1D list of convolved image
-"""
+def dim(x):
+    if isinstance(x, np.ndarray):
+        s = list(x.shape)
+    else:
+        s = []
+        while isinstance(x, list):
+            s.append(len(x))
+            x = x[0]
+    return s
 
-def convolution(image, kernel):
-    wi, hi = np.asarray(image).shape
-    s, s = np.asarray(kernel).shape
-    result = []
-    k = s//2
-    for x in range(k, wi - k):
-        for y in range(k, hi - k):
-            tmp_image = image[x-k:x+k+1][y-k:y+k+1]
-            I = np.asarray(tmp_image).flatten().tolist()
-            K = np.asarray(kernel).flatten().tolist()
-            result.append(mpc.in_prod(I, K))
-    return result
+
+def convolution(X, W):
+    print("---------- convolution ----------")
+    m, n = dim(X)
+    s = len(W) # s * s filter W
+    s2 = (s - 1) // 2
+    Y = [None] * m
+    for i in range(m):
+        Y[i] = [None] * n
+        for j in range(n):
+            t = 0
+            ix = i - s2
+            for di in range(s):
+                if 0 <= ix < m:
+                    jx = j - s2
+                    for dj in range(s):
+                        if 0 <= jx < n:
+                            t += X[ix][jx] * W[di][dj]
+                        jx += 1
+                ix += 1
+            Y[i][j] = t
+    return Y
+
+def relu(x):
+    print("---------- relu ----------")
+    return np.vectorize(lambda a: (a >= 0) * a)(x)
