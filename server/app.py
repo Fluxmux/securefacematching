@@ -44,7 +44,7 @@ def store_sample(line, datapart):
         l.error(e)
         return False
     return True
-    
+
 
 # Data store API
 @app.route("/store", methods=["PUT"])
@@ -98,17 +98,17 @@ def index():
 
 @app.route("/mpyc_launch", methods=["GET"])
 def mpyc_launch():
-    
+
     def get_api_name(api_name):
         return api_name + '.py'
-    
+
     http_arg = request.args.get('api')
     l.debug(f'Arg api : {http_arg}')
     script_name = get_api_name(http_arg)
     l.debug(f'Api : {script_name}')
     if script_name is None:
         return "400"
-    
+
     l.debug(request)
     os.chdir(main_wd)
     test_path="./mpyc/demos"
@@ -128,15 +128,18 @@ def mpyc_launch():
             host_addr = f'http://{party_host}:{party_port}/mpyc_launch?api={http_arg}'
             l.debug(f'Target host: {host_addr}')
             r = requests.get(host_addr)
-            l.debug(f'Party {i} response: {r.text}')  
+            l.debug(f'Party {i} response: {r.text}')
             time.sleep(2.50)
         # Fetch and parse result
         l.debug(f'{datetime.datetime.now()}: start mpyc script...')
         #raw_result = os.popen(f"python -u run.py 3 average.py").read()
-        process = subprocess.Popen(['python', script_name, '-c', f'party{3}_0.ini'], stdout=subprocess.PIPE)#shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        process = subprocess.Popen(['python', script_name, '-c', f'party{3}_0.ini'], stdout=subprocess.PIPE)
+        #process = subprocess.Popen(['python', script_name, '-c', f'party{3}_0.ini'], stdout=DEVNULL)#stdout=subprocess.PIPE)#shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
         stdout, stderr = process.communicate()
         is_running = False
-        #print(f'output: {stdout}')
+        l.debug(f'{datetime.datetime.now()}: end mpyc compute script...')
+
+        #print(f'output: {stdout.decode().split()}')
         output_formatted = stdout.decode().split('$$$')[1]
         output_formatted = output_formatted.split('$$$')[0]
         output_formatted = output_formatted.strip()
@@ -149,26 +152,27 @@ def mpyc_launch():
         #return render_template("demo.html", result=output)
         #return render_template("fetch_all.html", items=output)
         return output_formatted
+
     else:
         l.debug(f'Party config: party{3}_{Party}.ini')
         #os.popen(f"python average.py -c party{3}_{Party}.ini > /dev/null 2>&1")
         os.system(f'python {script_name} -c party{3}_{Party}.ini &')
         return "200"
-    
+
 
 @app.route("/mpyc_compute", methods=["GET"])
 def mpyc_compute():
-    
+
     def get_api_name(api_name):
         return api_name + '.py'
-    
+
     http_arg = request.args.get('api')
     l.debug(f'Compute arg api : {http_arg}')
     script_name = get_api_name(http_arg)
     l.debug(f'Compute api : {script_name}')
     if script_name is None:
         return "400"
-    
+
     #l.debug(request)
     os.chdir(main_wd)
     test_path="./mpyc/demos"
@@ -176,18 +180,17 @@ def mpyc_compute():
     # Raise other parties
     Party = os.getenv(f"Party")
     l.debug(f'Party: {Party}')
-    
+
     if Party == 0 or Party == '0':
         time.sleep(2*0.50)
     if Party == 1 or Party == '1':
         time.sleep(0.50)
-    
+
     l.debug(f'{datetime.datetime.now()}: start mpyc compute script...')
     #raw_result = os.popen(f"python -u run.py 3 average.py").read()
     process = subprocess.Popen(['python', script_name, '-c', f'party{3}_{Party}.ini'], stdout=subprocess.PIPE)#shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
     stdout, stderr = process.communicate()
 
-    print(f'output: {stdout}')
     output_formatted = stdout.decode().split('$$$')[1]
     output_formatted = output_formatted.split('$$$')[0]
     output_formatted = output_formatted.strip()
@@ -209,6 +212,6 @@ if __name__ == '__main__':
     Party = os.getenv(f"Party")
     host_name = f'server{Party}_web_1'
     print(f'host name: {host_name}')
-    app.run(debug=False, 
+    app.run(debug=False,
             #ssl_context=(os.getenv("CERT_PATH"), os.getenv("SECRET_PATH")),
             host=host_name)

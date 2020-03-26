@@ -22,5 +22,6 @@ url = f'http://{hosts[0]}:{ports[0]}/mpyc_launch?api=sum_server'
 print(f'Sending request: {url}')
 response = requests.get(url)
 print(f'Response status code: {response.status_code}')
+print(response.text)
 output = int(float(response.text))
 print(output)

@@ -1,0 +1,3 @@
+https://www.flickr.com/photos/124706007@N05/29410634062/sizes/l/
+await mpc.barriers
+instead of subprocess just stay in parent process?

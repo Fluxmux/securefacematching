@@ -1,12 +1,26 @@
 import numpy as np
 import os
-from matplotlib.image import imread
 import matplotlib.pyplot as plt
 import cv2
 import math
 from math import ceil
 
+print(np.asarray([[1, 2, 3]]).shape)
+"""
+#construct testdata
+image = np.array([[215, 175, 135, 215, 140],
+                  [50,  145,  20,  40,  80],
+                  [25,  155, 230, 185, 200],
+                  [135, 210, 220, 240,  30],
+                  [15,    0,  55, 150, 255]],
+                  dtype=float)
 
+kernel = np.array([[-2, 1, 0],
+                   [3, -4, 2],
+                   [2, 0, -1]],
+                    dtype=float)
+"""
+"""
 plaintext = cv2.imread('plaintext_out.png', cv2.IMREAD_GRAYSCALE)
 secure = cv2.imread('secure_out.png', cv2.IMREAD_GRAYSCALE)
 
@@ -29,6 +43,9 @@ print("wrong:", wrong)
 print("*********************")
 
 """
+
+
+
 def explicit_correlation(image, kernel):
     hi, wi= image.shape
     hk, wk = kernel.shape
@@ -64,8 +81,13 @@ def correlation(image, kernel):
     return out
 
 
-image = imread(os.path.join('data_faces', '1.pgm'))
-image = cv2.resize(image, dsize=(100, 100))
+result = correlation(image, kernel)
+print(result)
+"""
+"""
+
+image = cv2.imread(os.path.join('sharpen_image_data', 'mountain_view.jpg'), cv2.IMREAD_GRAYSCALE)
+print("shape of image:", image.shape)
 
 hor_filter = np.array([[-1, -1, -1],
                        [ 0,  0,  0],
@@ -100,11 +122,11 @@ plt.imshow(hfr_image)
 plt.show()
 
 print("FINAL RESULT")
-out = np.add(image, hfr_image)
-out = np.clip(out, 10, 240)
+out = np.add(image, 0.2*hfr_image)
+out = np.clip(out, 0, 255)
 plt.figure()
 plt.imshow(out)
 plt.show()
 out = out.astype(np.uint8)
-cv2.imwrite('plaintext_out.png', out[1:99, 1:99])
-"""
+
+cv2.imwrite('plaintext_out.jpg', out[1:359, 1:639])

@@ -30,7 +30,6 @@ def load_data(data, datapart, limitN=0, data_secrecy='secretshares'):
     elif datapart == 'model':
         sensor_data = db.model.sensor_data
     cursor = sensor_data.find().limit(limitN)
-    print("cursor", cursor)
     samples = [s[data] for s in cursor]
 
     if samples is None:

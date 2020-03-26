@@ -2,7 +2,9 @@ from mpyc.runtime import mpc
 from load_database import load_data
 
 async def main():
+    print("$$$$$$$$$$$$$")
     await mpc.start()
+    print("#############")
     data = load_data('Numbers', 'test')
     flattened_data = [item for sublist in data for item in sublist]
     a = flattened_data[0]
@@ -10,7 +12,6 @@ async def main():
     print("a:", type(a), a)
     print("b:", type(b), b)
     result = mpc.add(a, b)
-    result *= 10
     print("outputting result of type:", type(result), result)
     print("OUTPUT:", await mpc.output(result))
     print("$$$\n")
