@@ -46,10 +46,8 @@ def sharpen_img(image, kernels):
 
 
 async def main():
-    start = timer()
     await mpc.start()
     #load test data
-    start = timer()
     print(f'loading data...')
     data = load_data('Face', 'test')
     #data = np.array(data)
@@ -63,11 +61,15 @@ async def main():
                            [-1, 0, 1],
                            [-1, 0, 1]])
 
+    start = timer()
+
     result = sharpen_img(data, (hor_filter, ver_filter)).tolist()
     print(type(result), len(result), type(result[0]))
+    
     print("$$$\n")
     print(await mpc.output(result))
     print("$$$")
+
     end = timer()
     running_time = end - start
     print(f'MPC total time: {running_time}')

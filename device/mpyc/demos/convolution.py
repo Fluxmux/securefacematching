@@ -3,6 +3,7 @@ import cv2
 import requests
 import os
 from send_shares_mpcservers import send_shares_mpc
+from timeit import default_timer as timer
 
 #MPC parties
 hosts = ['LAP-BE-NIKOVIO1', 'LAP-BE-NIKOVIO1', 'LAP-BE-NIKOVIO1']
@@ -19,19 +20,15 @@ image = cv2.imread(os.path.join('sharpen_image_data', 'mountain_view.jpg'), cv2.
 print(image.shape)
 """
 
+size = (35, 35)
 
-image = np.array([[215, 175, 135, 215, 140],
-                  [50,  145,  20,  40,  80],
-                  [25,  155, 230, 185, 200],
-                  [135, 210, 220, 240,  30],
-                  [15,    0,  55, 150, 255]],
-                  dtype=np.uint8)
+image = np.random.randint(255, size=size)
 
 m, n = image.shape
 
-kernel = np.array([[1, 0, 0],
-                   [0, 5, 0],
-                   [0 , 0, -1]],
+kernel = np.array([[2, -1, 0],
+                   [-1, 0, 1],
+                   [0 , 1, -2]],
                     dtype=float)
 
 #send input as flattened ndarray
@@ -49,7 +46,14 @@ url = f'http://{hosts[0]}:{ports[0]}/mpyc_launch?api=convolution_server'
 
 #compute
 print(f'Sending request: {url}')
+start = timer()
+
 response = requests.get(url)
+
+end = timer()
+running_time = end - start
+print(f'Run time: {running_time}')
+
 print(f'Response status code: {response.status_code}')
 
 output = response.text
@@ -57,5 +61,5 @@ output = output.replace("[", "")
 output = output.replace("]", "")
 output = np.fromstring(output, dtype=float, sep=',').astype(int)
 output = np.clip(output, 0, 255)
-output = np.reshape(output, (m,n))
+output = np.reshape(output, int(size/2))
 print(output)

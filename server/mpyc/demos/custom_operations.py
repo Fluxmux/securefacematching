@@ -1,6 +1,7 @@
 import numpy as np
 from mpyc.runtime import mpc
 
+
 def dim(x):
     if isinstance(x, np.ndarray):
         s = list(x.shape)
@@ -33,6 +34,19 @@ def convolution(X, W):
                 ix += 1
             Y[i][j] = t
     return Y
+
+
+def maxpool(X):
+    print('---------- maxpooling ----------')
+    # maxpooling 2 * 2 squares in images of size m * n with stride 2
+    m, n = dim(X)
+    Y = [None] * (m // 2)
+    for i in range(0, m - 1, 2):
+        Y[int(i/2)] = [None] * (n // 2)
+        for j in range(0, n - 1, 2):
+            Y[int(i/2)][int(j/2)] = mpc.max(X[i][j], X[i][j+1], X[i+1][j], X[i+1][j+1])
+    return np.array(Y)
+
 
 def relu(x):
     print("---------- relu ----------")
