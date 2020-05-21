@@ -1,20 +1,22 @@
 from mpyc.runtime import mpc
 from timeit import default_timer as timer
 from load_database import load_data
+import numpy as np
 
 async def main():
     await mpc.start()
     data = load_data('Numbers', 'test')
     flattened_data = [item for sublist in data for item in sublist]
     a = flattened_data[0]
-    b = flattened_data[1]
     print("a:", type(a), a)
-    print("b:", type(b), b)
+
+    numbers = np.array([2.5]).tolist()
+
     start = timer()
-    result = mpc.add(a, b)
+    a = a * numbers[0]
 
     print("$$$\n")
-    print(await mpc.output(result))
+    print(await mpc.output(a))
     print("$$$")
 
     end = timer()

@@ -9,16 +9,19 @@ ports = [5000, 5001, 5002]
 #clear data
 info = []
 #send input as flattened ndarray
-for size in range(10,301,10):
+for size in range(10,251,10):
     for j in np.arange(len(hosts)):
         #print(f'clearing datapart test on server {hosts[j]}:{ports[j]}')
         r = requests.get(f'http://{hosts[j]}:{ports[j]}/clear_all?datapart=test')
+        r = requests.get(f'http://{hosts[j]}:{ports[j]}/clear_all?datapart=model')
 
     image = np.random.rand(size,size)
+    kernel = np.random.rand(3,3)
+    kernel = kernel.flatten()
     image = image.flatten()
     send_shares_mpc(image, ['Image'], 'test', hosts, ports, combined = True)
-
-    url = f'http://{hosts[0]}:{ports[0]}/mpyc_launch?api=relu_server'
+    send_shares_mpc(kernel, ['Kernel'], 'model', hosts, ports, combined = True)
+    url = f'http://{hosts[0]}:{ports[0]}/mpyc_launch?api=conv2d_server'
     #compute
     #print(f'Sending request: {url}')
     response = requests.get(url)

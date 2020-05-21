@@ -9,7 +9,7 @@ ports = [5000, 5001, 5002]
 #clear data
 info = []
 #send input as flattened ndarray
-for size in range(10,301,10):
+for size in range(10,251,10):
     for j in np.arange(len(hosts)):
         #print(f'clearing datapart test on server {hosts[j]}:{ports[j]}')
         r = requests.get(f'http://{hosts[j]}:{ports[j]}/clear_all?datapart=test')
@@ -18,7 +18,7 @@ for size in range(10,301,10):
     image = image.flatten()
     send_shares_mpc(image, ['Image'], 'test', hosts, ports, combined = True)
 
-    url = f'http://{hosts[0]}:{ports[0]}/mpyc_launch?api=relu_server'
+    url = f'http://{hosts[0]}:{ports[0]}/mpyc_launch?api=maxpooling_server'
     #compute
     #print(f'Sending request: {url}')
     response = requests.get(url)

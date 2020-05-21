@@ -19,10 +19,11 @@ for j in np.arange(len(hosts)):
 image = cv2.imread(os.path.join('sharpen_image_data', 'mountain_view.jpg'), cv2.IMREAD_GRAYSCALE)
 print(image.shape)
 """
+size = 10
+input_size = (size, size)
+output_size = (int(size/2), int(size/2))
 
-size = (35, 35)
-
-image = np.random.randint(255, size=size)
+image = np.random.randint(255, size=input_size)
 
 m, n = image.shape
 
@@ -61,5 +62,5 @@ output = output.replace("[", "")
 output = output.replace("]", "")
 output = np.fromstring(output, dtype=float, sep=',').astype(int)
 output = np.clip(output, 0, 255)
-output = np.reshape(output, int(size/2))
+output = np.reshape(output, output_size)
 print(output)
