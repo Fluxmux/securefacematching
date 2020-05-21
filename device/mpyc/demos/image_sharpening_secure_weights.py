@@ -24,8 +24,23 @@ image = cv2.resize(image, dsize=(x, y))
 flattened_image = image.flatten()
 print(image.shape)
 
+hor_filter = np.array([[-1, -1, -1],
+                       [ 0,  0,  0],
+                       [ 1,  1,  1]])
+
+ver_filter = np.array([[-1, 0, 1],
+                       [-1, 0, 1],
+                       [-1, 0, 1]])
+
+flattened_hor = hor_filter.flatten()
+flattened_ver = ver_filter.flatten()
+
 print(f'sending shares of input {flattened_image} to servers')
 send_shares_mpc(flattened_image, ['Face'], 'test', hosts, ports, combined=True)
+print(f'sending shares of input {flattened_hor} to servers')
+send_shares_mpc(flattened_hor, ['Hor_filter'], 'test', hosts, ports, combined=True)
+print(f'sending shares of input {flattened_ver} to servers')
+send_shares_mpc(flattened_image, ['Ver_filter'], 'test', hosts, ports, combined=True)
 
 #compute
 start = timer()

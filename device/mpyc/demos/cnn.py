@@ -19,7 +19,7 @@ for j in np.arange(len(hosts)):
     r = requests.get(f'http://{hosts[j]}:{ports[j]}/clear_all?datapart=test')
 
 #send image as flattened ndarray
-size = 55
+size = 100
 transform = transforms.Compose([transforms.Resize((size,size)), transforms.ToTensor()])
 image = Image.open(os.path.join('data_faces', '1.pgm'))
 image = image.convert("L")

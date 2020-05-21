@@ -1,3 +1,4 @@
+use these commands to set up and monitor the Docker containers
 docker container ls
 docker exec -it server0_web_1 bash
 docker network create mpc_backend
