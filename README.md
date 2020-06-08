@@ -14,9 +14,31 @@ Following software was used in this project:
 * [MPyC](https://github.com/lschoe/mpyc)
 * [Pytorch](https://pytorch.org/)
 
+
+## Installation
+### Make sure following dependencies are installed
+To install Pytorch go to their website ([pytorch.com](https://pytorch.org/))
+
+To install MPyC (the secure multiparty computation framework):
+
+```
+pip install mpyc
+```
+
 ## Run demo
 - First of all make sure the correct hostnames and ports are set in the environment files and the config files.
 - Launch the 3 Docker containers by running the "build_and_launch_servers.bat" files.
 - Execute a python script from the "device/mpyc/demo" folder.
 - The Docker containers should begin computing and some time later an output should be returned to the devices prompt.
 - If no output is returned or a status other than 200 is returned the application has crashed and you should try to set the allocated memory for the Docker containers higher (default is too low for bigger demos).
+
+## Commands
+Launch the 3 mpc parties:
+```
+server/build_and_launch_servers.bat
+```
+
+Execute the secure algorithm:
+```
+python device/mpyc/demos/cnn.py
+```
